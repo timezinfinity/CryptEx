@@ -29,26 +29,27 @@ export class ExchangeService implements OnDestroy {
   }
 
   private onTickerData(data: any) {
-    console.log(data);
+    var symbol = data;
 
-    var symbol = JSON.parse(data);
-
-    if (!symbol[0].includes("USDT")) {
+    if (!symbol[0].includes("_USDT")) {
       console.log('Symbol skipped')
       return;
     }
 
-    var ts : TickerSymbol;
-    ts.CurrencyPair = symbol[0];
-    ts.LastValue = symbol[1];
-    ts.LowestAsk = symbol[2];
-    ts.HighestBid = symbol[3];
-    ts.PercentChange = symbol[4];
-    ts.BaseVolume = symbol[5];
-    ts.QuoteVolume = symbol[6];
-    ts.IsFrozen = symbol[7];
-    ts.High24Hr = symbol[8];
-    ts.Low24Hr = symbol[9];
+    console.log(data);
+
+    var ts : TickerSymbol = {
+      CurrencyPair: symbol[0],
+      LastValue: symbol[1],
+      LowestAsk: symbol[2],
+      HighestBid: symbol[3],
+      PercentChange: symbol[4],
+      BaseVolume: symbol[5],
+      QuoteVolume: symbol[6],
+      IsFrozen: symbol[7],
+      High24Hr: symbol[8],
+      Low24Hr: symbol[9]
+    };
 
     var index = this.ticker.findIndex((i) => { return i.CurrencyPair == ts.CurrencyPair});
 
