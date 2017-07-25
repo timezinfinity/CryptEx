@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "wampy": "registry:dt/wampy#3.0.0+20170321020230"
+  }
+}

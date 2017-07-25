@@ -5,18 +5,20 @@ import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { ExchangePage } from '../pages/exchange/exchange';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { ExchangeService } from '../services/exchange.service';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
+    ExchangePage,
     TabsPage
   ],
   imports: [
@@ -28,12 +30,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
+    ExchangePage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    ExchangeService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
