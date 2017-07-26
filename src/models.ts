@@ -1,12 +1,12 @@
 export interface TickerSymbol {
   CurrencyPair: string;
-  LastValue: number;
-  LowestAsk: number;
-  HighestBid: number;
-  PercentChange: number;
-  BaseVolume: number;
-  QuoteVolume: number;
-  IsFrozen: boolean;
-  High24Hr: number;
-  Low24Hr: number;
+  LastValue: any;
+  LowestAsk: any;
+  HighestBid: any;
+  PercentChange: any;
+  BaseVolume: any;
+  QuoteVolume: any;
+  IsFrozen: any;
+  High24Hr: any;
+  Low24Hr: any;
 }
