@@ -8,9 +8,10 @@
   <div *ngIf="!exchangeService.isConnected">
     <p>Connecting...</p>
   </div>
-  <ion-list *ngIf="exchangeService.isConnected">
+  <ion-list>
+    <!-- *ngIf="exchangeService.isConnected" -->
     <ion-item *ngFor="let item of ticker">
-      <span>{{ item.CurrencyPair }}</span><span>{{item.LastValue}}</span>
+      <span>{{ item.CurrencyPair }}</span>  <span>{{item.LastValue}}</span>
     </ion-item>
   </ion-list>
 </ion-content>

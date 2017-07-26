@@ -1,29 +1,42 @@
-import { Injectable, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 import { Connection } from 'autobahn';
 import { TickerSymbol } from '../models';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 @Injectable()
 export class ExchangeService implements OnDestroy {
-  @Output() tickerUpdate: EventEmitter<any>;
 
   private conn;
   private session;
   private subscription;
 
-  public ticker: TickerSymbol[] = [];
+  public ticker: Array<TickerSymbol> = new Array<TickerSymbol>();
+  public tickerSubject: BehaviorSubject<Array<TickerSymbol>> = new BehaviorSubject([]);
+  public ticker$: Observable<Array<TickerSymbol>> = this.tickerSubject.asObservable();
   public isConnected: boolean = false;
 
-  constructor() {
-    this.tickerUpdate = new EventEmitter();
+  constructor(public http: Http) {
+    //TODO: Need to get data from http first since poloniex is slow.
+   /*  this.http.get('https://poloniex.com/public?command=returnTicker').map(res => res.json()).subscribe(data => {
+        this.ticker = data;
+    }); */
 
     this.conn = new Connection({ url: 'wss://api.poloniex.com', realm: 'realm1', retry_delay_growth: 0, max_retries: -1, initial_retry_delay: 1 });
     this.conn.onopen = (session) => {
       console.log('connected');
       this.isConnected = true;
       this.session = session;
-      session.subscribe('ticker', this.onTickerData).then((sub) => { this.subscription = sub; });
+      session.subscribe('ticker', this.onTickerData.bind(this)).then((sub) => { this.subscription = sub; });
     };
     this.conn.open();
+    setTimeout(function() {
+      if (!this.isConnected) {
+        this.conn.close();
+        this.conn.open();
+      }
+    }, 3000);
   }
 
   ngOnDestroy() {
@@ -63,12 +76,6 @@ export class ExchangeService implements OnDestroy {
         Low24Hr: symbol[9]
       };
 
-      console.log(ts);
-
-      if (!this.ticker) {
-        this.ticker = [];
-      }
-
       var index = this.ticker.findIndex((i) => { return i.CurrencyPair == ts.CurrencyPair });
 
       if (index > -1) {
@@ -80,7 +87,7 @@ export class ExchangeService implements OnDestroy {
         this.ticker.push(ts);
       }
 
-      this.tickerUpdate.emit(this.ticker);
+      this.tickerSubject.next(this.ticker);
 
     } catch (err) {
       console.log(err);
