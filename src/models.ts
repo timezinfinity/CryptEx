@@ -1,4 +1,5 @@
 export interface TickerSymbol {
+  DisplayName: string;
   CurrencyPair: string;
   LastValue: any;
   LowestAsk: any;

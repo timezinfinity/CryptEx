@@ -11,6 +11,7 @@ export class ExchangeService implements OnDestroy {
   private conn;
   private session;
   private subscription;
+  private interval;
 
   public ticker: Array<TickerSymbol> = new Array<TickerSymbol>();
   public tickerSubject: BehaviorSubject<Array<TickerSymbol>> = new BehaviorSubject([]);
@@ -18,10 +19,7 @@ export class ExchangeService implements OnDestroy {
   public isConnected: boolean = false;
 
   constructor(public http: Http) {
-    //TODO: Need to get data from http first since poloniex is slow.
-   /*  this.http.get('https://poloniex.com/public?command=returnTicker').map(res => res.json()).subscribe(data => {
-        this.ticker = data;
-    }); */
+    this.interval = setInterval(this.getTickerDataRestfully.bind(this), 5000);
 
     this.conn = new Connection({ url: 'wss://api.poloniex.com', realm: 'realm1', retry_delay_growth: 0, max_retries: -1, initial_retry_delay: 1 });
     this.conn.onopen = (session) => {
@@ -31,7 +29,7 @@ export class ExchangeService implements OnDestroy {
       session.subscribe('ticker', this.onTickerData.bind(this)).then((sub) => { this.subscription = sub; });
     };
     this.conn.open();
-    setTimeout(function() {
+    setTimeout(function () {
       if (!this.isConnected) {
         this.conn.close();
         this.conn.open();
@@ -52,6 +50,40 @@ export class ExchangeService implements OnDestroy {
     }
   }
 
+  private getTickerDataRestfully() {
+    if (this.isConnected) {
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      return;
+    }
+
+    this.http.get('https://poloniex.com/public?command=returnTicker').map(res => res.json()).subscribe(data => {
+      try {
+        for (var pair in data) {
+          if (pair.includes("USDT")) {
+            var symbol = [];
+            symbol.push(pair);
+
+            symbol.push(data[pair]["last"]);
+            symbol.push(data[pair]["lowestAsk"]);
+            symbol.push(data[pair]["highestBid"]);
+            symbol.push(data[pair]["percentChange"]);
+            symbol.push(data[pair]["baseVolume"]);
+            symbol.push(data[pair]["quoteVolume"]);
+            symbol.push(data[pair]["isFrozen"]);
+            symbol.push(data[pair]["high24hr"]);
+            symbol.push(data[pair]["low24hr"]);
+
+            this.createUpdateTickerSymbol(symbol);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
+
   private onTickerData(data: any) {
     try {
       var symbol = data;
@@ -63,7 +95,17 @@ export class ExchangeService implements OnDestroy {
 
       console.log(data);
 
+      this.createUpdateTickerSymbol(symbol);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  private createUpdateTickerSymbol(symbol) {
+    try {
       var ts: TickerSymbol = {
+        DisplayName: symbol[0].replace('USDT', '').replace('_', ''),
         CurrencyPair: symbol[0],
         LastValue: symbol[1],
         LowestAsk: symbol[2],
@@ -88,7 +130,6 @@ export class ExchangeService implements OnDestroy {
       }
 
       this.tickerSubject.next(this.ticker);
-
     } catch (err) {
       console.log(err);
     }

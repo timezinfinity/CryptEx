@@ -44,6 +44,9 @@ $colors: (
 $background-color: #232e33;
 $tabs-background: #465b66;
 $toolbar-background: #465b66;
+$list-md-background-color: $background-color;
+$list-md-margin-left: 5px;
+$list-md-margin-right: 5px;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -91,5 +94,5 @@ $toolbar-background: #465b66;
 @import "noto-sans";
 
 // Font Awesome
-$fa-font-path: $font-path;
-@import "font-awesome";
+// $fa-font-path: $font-path;
+// @import "font-awesome";
