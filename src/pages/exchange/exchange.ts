@@ -12,8 +12,7 @@ export class ExchangePage {
   public ticker: TickerSymbol[];
 
   constructor(public navCtrl: NavController, public exchangeService: ExchangeService) {
-    //this.exchangeService.tickerUpdates().subscribe((data) => { this.ticker = data; });
-    this.exchangeService.ticker$.subscribe(data => { this.ticker = data; });
+    this.exchangeService.ticker$.subscribe(this.onTickerUpdate.bind(this));
 
 /*     this.ticker = [{
         CurrencyPair: 'BTC_USDT',
@@ -27,6 +26,10 @@ export class ExchangePage {
         High24Hr: '2600',
         Low24Hr: '2478'
       }] */
+  }
+
+  private onTickerUpdate(data : TickerSymbol[]) {
+    this.ticker = data;
   }
 
 }

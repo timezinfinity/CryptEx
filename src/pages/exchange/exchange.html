@@ -5,50 +5,23 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="!exchangeService.isConnected">
+  <!-- <div *ngIf="!exchangeService.isConnected">
     <p>Connecting...</p>
-  </div>
+  </div> -->
   <ion-grid>
-    <ion-row>
-        <ion-col>Currency</ion-col>
-        <ion-col>Price</ion-col>
-        <ion-col>Low</ion-col>
-        <ion-col>High</ion-col>
-        <ion-col>Change</ion-col>
+    <ion-row class="divider">
+        <ion-col class="heading">Currency</ion-col>
+        <ion-col class="heading right-aligned" col-3>Price</ion-col>
+        <ion-col class="heading right-aligned" col-3>Low</ion-col>
+        <ion-col class="heading right-aligned" col-3>High</ion-col>
+        <ion-col class="heading right-aligned">Change</ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of ticker">
-        <ion-col>{{item.DisplayName}}</ion-col>
-        <ion-col>{{item.LastValue | number: '1.2-8'}}</ion-col>
-        <ion-col>{{item.Low24Hr | number: '1.2-8'}}</ion-col>
-        <ion-col>{{item.High24Hr | number: '1.2-8'}}</ion-col>
-        <ion-col>{{item.PercentChange | number: '1.2-2'}}</ion-col>
+    <ion-row *ngFor="let item of ticker" class="divider" button>
+        <ion-col class="item">{{item.DisplayName}}</ion-col>
+        <ion-col class="item numeric start" col-3>{{item.LastValue | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric" col-3>{{item.Low24Hr | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric" col-3>{{item.High24Hr | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric" [ngClass]="{'red': item.PercentChange < 0, 'green': item.PercentChange > 0}">{{item.PercentChange | number: '1.2-2'}}</ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-list>
-    <div *ngFor="let item of ticker">
-      <button ion-item>
-         <ion-grid>
-          <ion-row>
-            <ion-col col-2>{{ item.DisplayName }}</ion-col>
-            <ion-col>
-              <ion-grid>
-                <ion-row>
-                    <ion-col col-3>Price</ion-col>
-                    <ion-col col-3>Low</ion-col>
-                    <ion-col col-3>High</ion-col>
-                    <ion-col col-3>Change</ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-3>{{item.LastValue | number: '1.2-8'}}</ion-col>
-                    <ion-col col-3>{{item.Low24Hr | number: '1.2-8'}}</ion-col>
-                    <ion-col col-3>{{item.High24Hr | number: '1.2-8'}}</ion-col>
-                    <ion-col col-3>{{item.PercentChange | number: '1.2-2'}}</ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </button>
-    </div>
-  </ion-list> -->
 </ion-content>

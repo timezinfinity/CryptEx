@@ -110,18 +110,32 @@ export class ExchangeService implements OnDestroy {
         LastValue: symbol[1],
         LowestAsk: symbol[2],
         HighestBid: symbol[3],
-        PercentChange: symbol[4],
+        PercentChange: Number(symbol[4]) * 100.0,
         BaseVolume: symbol[5],
         QuoteVolume: symbol[6],
         IsFrozen: symbol[7],
         High24Hr: symbol[8],
-        Low24Hr: symbol[9]
+        Low24Hr: symbol[9],
+        State: 'normal'
       };
 
       var index = this.ticker.findIndex((i) => { return i.CurrencyPair == ts.CurrencyPair });
 
       if (index > -1) {
+
+        this.ticker[index].State = 'normal';
+
         console.log(`Replacing TickerSymbol at index ${index}`);
+
+        if (this.ticker[index].PercentChange > ts.PercentChange) {
+          ts.State = 'positive';
+          console.log(`${ts.DisplayName} has ${ts.State} change`);
+        } else if (this.ticker[index].PercentChange < ts.PercentChange) {
+          ts.State = 'negative';
+          console.log(`${ts.DisplayName} has ${ts.State} change`);
+        } else {
+          console.log(`No state change for ${ts.DisplayName}. Old: ${this.ticker[index].PercentChange}, New: ${ts.PercentChange}`);
+        }
 
         this.ticker[index] = ts;
       } else {
