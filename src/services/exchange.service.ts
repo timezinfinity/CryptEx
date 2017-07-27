@@ -93,7 +93,7 @@ export class ExchangeService implements OnDestroy {
         return;
       }
 
-      console.log(data);
+      //console.log(data);
 
       this.createUpdateTickerSymbol(symbol);
 
@@ -125,7 +125,7 @@ export class ExchangeService implements OnDestroy {
 
         this.ticker[index].State = 'normal';
 
-        console.log(`Replacing TickerSymbol at index ${index}`);
+        //console.log(`Replacing TickerSymbol at index ${index}`);
 
         if (this.ticker[index].PercentChange > ts.PercentChange) {
           ts.State = 'positive';
@@ -139,7 +139,7 @@ export class ExchangeService implements OnDestroy {
 
         this.ticker[index] = ts;
       } else {
-        console.log(`Adding new TickerSymbol ${ts.CurrencyPair}`);
+        //console.log(`Adding new TickerSymbol ${ts.CurrencyPair}`);
         this.ticker.push(ts);
       }
 

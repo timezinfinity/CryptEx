@@ -10,17 +10,17 @@
   </div> -->
   <ion-grid>
     <ion-row class="divider">
-        <ion-col class="heading">Currency</ion-col>
+        <ion-col class="heading"></ion-col>
         <ion-col class="heading right-aligned" col-3>Price</ion-col>
         <ion-col class="heading right-aligned" col-3>Low</ion-col>
         <ion-col class="heading right-aligned" col-3>High</ion-col>
         <ion-col class="heading right-aligned">Change</ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of ticker" class="divider" button>
+    <ion-row *ngFor="let item of ticker" class="divider" button [@symbolState]="item.State">
         <ion-col class="item">{{item.DisplayName}}</ion-col>
-        <ion-col class="item numeric start" col-3>{{item.LastValue | number: '1.2-8'}}</ion-col>
-        <ion-col class="item numeric" col-3>{{item.Low24Hr | number: '1.2-8'}}</ion-col>
-        <ion-col class="item numeric" col-3>{{item.High24Hr | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric" col-3>{{item.LastValue | number: '1.2-4'}}</ion-col>
+        <ion-col class="item numeric" col-3>{{item.Low24Hr | number: '1.2-4'}}</ion-col>
+        <ion-col class="item numeric" col-3>{{item.High24Hr | number: '1.2-4'}}</ion-col>
         <ion-col class="item numeric" [ngClass]="{'red': item.PercentChange < 0, 'green': item.PercentChange > 0}">{{item.PercentChange | number: '1.2-2'}}</ion-col>
     </ion-row>
   </ion-grid>
