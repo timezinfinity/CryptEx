@@ -55,8 +55,12 @@
     </div>
   </div>
   <div class="chart-placeholder">
+    <p>Price</p>
     <candlestick-chart class="chart" [data]="symbolData"></candlestick-chart>
-    <!-- <svg class="chart" id="chartContainer"></svg> -->
+  </div>
+  <div class="volume-chart-placeholder">
+    <p>Volume</p>
+    <volume-chart class="volume-chart" [data]="symbolData"></volume-chart>
   </div>
   <div class="market-history"></div>
 </ion-content>

@@ -14,7 +14,7 @@ export interface TickerSymbol {
 }
 
 export interface SymbolChartData {
-  Date: any;
+  Date: number;
   High: number;
   Low: number;
   Open: number;

@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExchangeService } from '../services/exchange.service';
 import { CandlestickChartComponent } from '../components/candlestick-chart/candlestick-chart';
+import { VolumeChartComponent } from '../components/volume-chart/volume-chart';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CandlestickChartComponent } from '../components/candlestick-chart/candl
     ExchangePage,
     ExchangeDetailPage,
     TabsPage,
-    CandlestickChartComponent
+    CandlestickChartComponent,
+    VolumeChartComponent
   ],
   imports: [
     BrowserModule,
