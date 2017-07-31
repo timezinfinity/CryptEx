@@ -61,18 +61,19 @@ page-exchange-detail {
   }
 
   .chart-placeholder {
-    height: 500px;
+    height: 325px;
   }
 
   .volume-chart-placeholder {
     height: 150px;
+    margin-bottom: 20px;
   }
 
   .volume-chart {
     // margin-left: 5%;
     // margin-right: 5%;
     width: 100%;
-    height: 125px;
+    height: 100px;
     display: block;
   }
 }

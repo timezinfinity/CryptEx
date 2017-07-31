@@ -16,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExchangeService } from '../services/exchange.service';
 import { CandlestickChartComponent } from '../components/candlestick-chart/candlestick-chart';
 import { VolumeChartComponent } from '../components/volume-chart/volume-chart';
+import { WindowSize } from '../utils/WindowSize';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { VolumeChartComponent } from '../components/volume-chart/volume-chart';
     StatusBar,
     SplashScreen,
     ExchangeService,
+    WindowSize,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

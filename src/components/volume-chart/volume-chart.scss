@@ -1,6 +1,27 @@
 volume-chart {
-  .internal-chart-container {
+  .internal-volume-chart-container {
     width: 100%;
     height: 100%;
+  }
+
+  .axis {
+    width: 100%;
+    height: 100%;
+    color: #37474F;
+    stroke: #37474F;
+  }
+
+  .tick line {
+    stroke-dasharray: 2 2 ;
+    stroke: #37474F;
+  }
+
+  .tick text{
+    //fill: white;
+    stroke: white;
+  }
+
+  .domain {
+    stroke: #37474F;
   }
 }
