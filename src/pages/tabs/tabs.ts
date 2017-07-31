@@ -12,6 +12,7 @@ export class TabsPage {
   tabExchange = ExchangePage;
   tab2Root = AboutPage;
   tab3Root = ContactPage;
+  tab4Root = undefined;
 
   constructor() {
 

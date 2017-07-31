@@ -12,3 +12,14 @@ export interface TickerSymbol {
   Low24Hr: any;
   State: any;
 }
+
+export interface SymbolChartData {
+  Date: any;
+  High: number;
+  Low: number;
+  Open: number;
+  Close: number;
+  Volume: number;
+  QuoteVolume: number;
+  WeightedAverage: number;
+}

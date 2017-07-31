@@ -8,11 +8,13 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { ExchangePage } from '../pages/exchange/exchange';
+import { ExchangeDetailPage } from '../pages/exchange-detail/exchange-detail';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExchangeService } from '../services/exchange.service';
+import { CandlestickChartComponent } from '../components/candlestick-chart/candlestick-chart';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ExchangeService } from '../services/exchange.service';
     AboutPage,
     ContactPage,
     ExchangePage,
-    TabsPage
+    ExchangeDetailPage,
+    TabsPage,
+    CandlestickChartComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { ExchangeService } from '../services/exchange.service';
     AboutPage,
     ContactPage,
     ExchangePage,
+    ExchangeDetailPage,
     TabsPage
   ],
   providers: [

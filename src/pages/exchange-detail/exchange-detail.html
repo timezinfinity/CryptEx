@@ -1,0 +1,62 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{symbol.DisplayName}}<span class="margin-10" [ngClass]="{'red': symbol.PercentChange < 0, 'green': symbol.PercentChange > 0}">{{symbol.PercentChange | number: '1.2-2'}}%</span></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-end (click)="presentExchangeList($event)">
+        <span style="font-size:1.7rem">Poloniex</span>
+        <ion-icon name="md-arrow-dropdown"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="summary">
+    <div class="margin-2-5">
+      <ion-row>
+        <ion-col class="heading">Balance</ion-col>
+        <ion-col class="heading centered">Value</ion-col>
+        <ion-col class="heading centered">Profit/Loss</ion-col>
+        <ion-col class="heading right-aligned">Overall</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="item">2,750.34</ion-col>
+        <ion-col class="item centered">250,143.454</ion-col>
+        <ion-col class="item centered">159.75</ion-col>
+        <ion-col class="item right-aligned">13.90%</ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div class="details bordered" [@symbolState]="symbol.State">
+    <div class="margin-2-5">
+      <ion-row>
+        <ion-col class="heading">Price</ion-col>
+        <ion-col class="heading centered">24hr Low</ion-col>
+        <ion-col class="heading right-aligned">24hr High</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="item">{{symbol.LastValue | number: '1.2-8'}}</ion-col>
+        <ion-col class="item centered">{{symbol.Low24Hr | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric">{{symbol.High24Hr | number: '1.2-8'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="heading">Lowest Ask</ion-col>
+        <ion-col class="heading centered">Highest Bid</ion-col>
+        <ion-col class="heading right-aligned">24hr Volume</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="item">{{symbol.LowestAsk | number: '1.2-8'}}</ion-col>
+        <ion-col class="item centered">{{symbol.HighestBid | number: '1.2-8'}}</ion-col>
+        <ion-col class="item numeric">{{symbol.QuoteVolume / 1000000 | number: '1.2-8'}}M</ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div class="chart-placeholder">
+    <candlestick-chart class="chart" [data]="symbolData"></candlestick-chart>
+    <!-- <svg class="chart" id="chartContainer"></svg> -->
+  </div>
+  <div class="market-history"></div>
+</ion-content>

@@ -1,22 +1,25 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Exchange</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-end (click)="presentExchangeList($event)">
+        <span style="font-size:1.7rem">Poloniex</span>
+        <ion-icon name="md-arrow-dropdown"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <!-- <div *ngIf="!exchangeService.isConnected">
-    <p>Connecting...</p>
-  </div> -->
+<ion-content>
   <ion-grid>
     <ion-row class="divider">
-        <ion-col class="heading"></ion-col>
+        <ion-col class="heading">Coin</ion-col>
         <ion-col class="heading right-aligned" col-3>Price</ion-col>
         <ion-col class="heading right-aligned" col-3>Low</ion-col>
         <ion-col class="heading right-aligned" col-3>High</ion-col>
-        <ion-col class="heading right-aligned">Change</ion-col>
+        <ion-col class="heading right-aligned">%</ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of ticker" class="divider" button [@symbolState]="item.State">
+    <ion-row *ngFor="let item of ticker" class="divider" button [@symbolState]="item.State" [navPush]="detailPage" [navParams]="item">
         <ion-col class="item">{{item.DisplayName}}</ion-col>
         <ion-col class="item numeric" col-3>{{item.LastValue | number: '1.2-4'}}</ion-col>
         <ion-col class="item numeric" col-3>{{item.Low24Hr | number: '1.2-4'}}</ion-col>

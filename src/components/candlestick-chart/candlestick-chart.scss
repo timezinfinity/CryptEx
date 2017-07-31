@@ -1,0 +1,35 @@
+candlestick-chart {
+  .box line,
+  .box rect,
+  .box circle {
+    fill: steelblue;
+    stroke: #78909C;
+    stroke-width: 1px;
+  }
+
+  .box .center {
+    stroke-dasharray: 3,3;
+  }
+
+  .box .outlier {
+    fill: none;
+    stroke: #78909C;
+  }
+
+  .axis {
+    font: 12px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #78909C;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    fill: none;
+    stroke: #78909C;
+    shape-rendering: crispEdges;
+  }
+}
