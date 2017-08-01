@@ -1,31 +1,53 @@
-import { Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, AfterViewInit } from '@angular/core';
 import { WindowSize } from '../../utils/WindowSize';
-import * as d3 from 'd3';
 declare var Plotly: any;
+import * as d3 from 'd3';
 
 @Component({
   selector: 'candlestick-chart',
   templateUrl: 'candlestick-chart.html'
 })
-export class CandlestickChartComponent implements OnChanges {
+export class CandlestickChartComponent implements OnChanges, AfterViewInit {
 
   @Input() private data: Array<any>;
 
   private labels: false;
+  private isInitialized: boolean = false;
+  private isChartCreated: boolean = false;
+  private chart: any;
 
   constructor(private window: WindowSize) {
-    window.height$.subscribe(function (w) { this.updateChart(); }.bind(this));
-    window.width$.subscribe(function (w) { this.updateChart(); }.bind(this));
+    window.height$.subscribe(function (w) { this.resizeChart(); }.bind(this));
+    window.width$.subscribe(function (w) { this.resizeChart(); }.bind(this));
   }
 
   ngOnChanges() {
     this.updateChart();
   }
 
+  ngAfterViewInit() {
+    this.isInitialized = true;
+    this.chart = d3.select('.int-cs-chart').node();
+    console.log(this.chart);
+  }
+
   private updateChart() {
+    if (!this.isInitialized) {
+      return;
+    }
+
     console.log(this.data);
 
-    Plotly.plot('internal-candlestick-chart-container', this.sampleData, this.layout, { displayModeBar: false });
+    //if (!this.isChartCreated) {
+      Plotly.plot('internal-candlestick-chart-container', this.sampleData, this.layout, { displayModeBar: false });
+      this.isChartCreated = true;
+    //}
+  }
+
+  private resizeChart() {
+    if (this.chart) {
+      Plotly.Plots.resize(this.chart);
+    }
   }
 
   private trace1 = {
@@ -47,10 +69,13 @@ export class CandlestickChartComponent implements OnChanges {
   private layout = {
     dragmode: 'pan',
     margin: {
-      r: 0,
+      r: 10,
       t: 0,
       b: 0,
-      l: 0
+      l: 50
+    },
+    font: {
+      color: '#fff'
     },
     showlegend: false,
     autosize: true,
@@ -67,7 +92,7 @@ export class CandlestickChartComponent implements OnChanges {
       type: 'date',
       ticks: 'outside',
       tickangle: 90,
-      gridcolor: '#29353A',
+//      gridcolor: '#00000000',
       linecolor: '#465b66'
     },
     yaxis: {

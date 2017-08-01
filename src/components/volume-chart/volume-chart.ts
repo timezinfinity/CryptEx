@@ -16,13 +16,13 @@ export class VolumeChartComponent implements OnChanges, AfterViewInit {
   private updated: boolean = false;
 
   constructor(private elementRef: ElementRef, private window: WindowSize) {
-    window.height$.subscribe(function (w) { this.updateChart(); }.bind(this));
-    window.width$.subscribe(function (w) { this.updateChart(); }.bind(this));
+    window.height$.subscribe(function (w) {  }.bind(this));
+    window.width$.subscribe(function (w) {  }.bind(this));
   }
 
   ngOnChanges() {
     if (this.chart) {
-      this.updateChart();
+      //this.updateChart();
     }
   }
 
