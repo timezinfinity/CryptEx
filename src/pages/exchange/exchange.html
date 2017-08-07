@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Exchange</ion-title>
-    <ion-buttons end>
+     <ion-buttons end>
       <button ion-button icon-end (click)="presentExchangeList($event)">
-        <span style="font-size:1.7rem">Poloniex</span>
+        <span style="font-size:1.7rem">{{exchangeService?.currentExchange.Type}}</span>
         <ion-icon name="md-arrow-dropdown"></ion-icon>
       </button>
     </ion-buttons>

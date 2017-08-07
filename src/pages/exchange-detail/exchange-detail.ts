@@ -43,12 +43,12 @@ export class ExchangeDetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private exchangeService: ExchangeService, public http: Http) {
     this.symbol = navParams.data;
-    this.exchangeService.ticker$.subscribe(this.onTickerUpdate.bind(this));
-    this.exchangeService.getChartData(this.symbol.CurrencyPair, new Date('7-15-2017').getTime() / 1000 | 0, Date.now() / 1000 | 0, 1800).then(function (data) {
-      this.symbolData = data;
-    }.bind(this), (err) => {
-      console.log(err);
-    });
+    this.exchangeService.Ticker$.subscribe(this.onTickerUpdate.bind(this));
+    // this.exchangeService.getChartData(this.symbol.CurrencyPair, new Date('7-15-2017').getTime() / 1000 | 0, Date.now() / 1000 | 0, 1800).then(function (data) {
+    //   this.symbolData = data;
+    // }.bind(this), (err) => {
+    //   console.log(err);
+    // });
   }
 
   ionViewDidLoad() {

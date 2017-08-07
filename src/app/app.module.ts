@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http'
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, PopoverController } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
@@ -17,6 +17,8 @@ import { ExchangeService } from '../services/exchange.service';
 import { CandlestickChartComponent } from '../components/candlestick-chart/candlestick-chart';
 import { VolumeChartComponent } from '../components/volume-chart/volume-chart';
 import { WindowSize } from '../utils/WindowSize';
+import { CustomChartComponent } from '../components/custom-chart/custom-chart';
+import { ExchangePopupComponent } from '../components/exchange-popup/exchange-popup';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { WindowSize } from '../utils/WindowSize';
     ExchangeDetailPage,
     TabsPage,
     CandlestickChartComponent,
-    VolumeChartComponent
+    VolumeChartComponent,
+    CustomChartComponent,
+    ExchangePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -42,13 +46,15 @@ import { WindowSize } from '../utils/WindowSize';
     ContactPage,
     ExchangePage,
     ExchangeDetailPage,
-    TabsPage
+    TabsPage,
+    ExchangePopupComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     ExchangeService,
     WindowSize,
+    PopoverController,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

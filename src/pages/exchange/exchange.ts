@@ -5,6 +5,7 @@ import { TickerSymbol } from '../../models';
 import { ExchangeDetailPage } from '../exchange-detail/exchange-detail';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { fadeInAnimation } from '../../animations/index';
+import { ExchangePopupComponent } from '../../components/exchange-popup/exchange-popup';
 
 @Component({
   selector: 'page-exchange',
@@ -44,7 +45,7 @@ export class ExchangePage {
   public ticker: TickerSymbol[];
 
   constructor(public navCtrl: NavController, public exchangeService: ExchangeService, public popoverController: PopoverController) {
-    this.exchangeService.ticker$.subscribe(this.onTickerUpdate.bind(this));
+    this.exchangeService.Ticker$.subscribe(this.onTickerUpdate.bind(this));
     this.navCtrl.config.setTransition('md-transition', this.navCtrl.config.getTransition('ios-transition'));
   }
 
@@ -53,9 +54,9 @@ export class ExchangePage {
   }
 
   private presentExchangeList(event: any) {
-    // let popover = this.popoverCtrl.create(PopoverPage);
-    // popover.present({
-    //   ev: myEvent
-    // });
+    let popover = this.popoverController.create(ExchangePopupComponent);
+    popover.present({
+      ev: event
+    });
   }
 }
